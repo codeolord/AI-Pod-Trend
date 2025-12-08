@@ -59,5 +59,4 @@ GitHub Actions workflow at `.github/workflows/ci.yml`:
 - postgres (port 5432)
 - redis (port 6379)
 
-This repository is ready to be pushed directly to GitHub and used as a base
-for a production POD automation system.
+This is the Base
