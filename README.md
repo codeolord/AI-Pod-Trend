@@ -13,6 +13,28 @@ It includes:
 
 You can push this repo straight to GitHub and run it locally or with Docker.
 
+## Publishing to your GitHub account
+
+If you pulled this code from a template or a zip download, you can publish it to
+your own GitHub account with the following steps:
+
+1. Create a new empty repository on GitHub (do not add a README or license).
+2. Point this local checkout at the new repository:
+
+   ```bash
+   git remote add origin https://github.com/<your-username>/<repo-name>.git
+   ```
+
+3. Push the current branch to GitHub so the updates are available in your
+   account:
+
+   ```bash
+   git push -u origin work
+   ```
+
+Replace `<your-username>` and `<repo-name>` with your GitHub details. After
+pushing, you should see the updated code in your account.
+
 ## Monorepo Layout
 
 ```text
@@ -40,6 +62,15 @@ infra/     # Docker compose for local dev
 - Single-page dashboard that calls the backend:
   - `/api/v1/trends` for quick trend view.
   - Uses filters and search on the client.
+
+TypeScript is pinned to **5.4.5**, the latest version officially supported by
+this Next.js release.
+
+### Frontend API Base URL
+
+The dashboard reads `NEXT_PUBLIC_API_BASE_URL` (if unset it falls back to relative
+`/api/v1` calls against the same origin). Set this to `http://backend:8000` when
+running via Docker Compose so the frontend container can reach the backend service.
 
 You can easily extend it to call `/api/v1/products` and `/api/v1/designs` if desired.
 

@@ -25,10 +25,15 @@ export default function HomePage() {
   const [demandFilter, setDemandFilter] = useState<string>("all");
   const [search, setSearch] = useState<string>("");
 
+  const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL?.replace(/\/$/, "");
+
   useEffect(() => {
     const fetchTrends = async () => {
       try {
-        const res = await fetch("http://localhost:8000/api/v1/trends");
+        const trendsUrl = apiBaseUrl
+          ? `${apiBaseUrl}/api/v1/trends`
+          : "/api/v1/trends";
+        const res = await fetch(trendsUrl);
         if (!res.ok) throw new Error("Failed to fetch trends");
         const data: Trend[] = await res.json();
         setTrends(data);
@@ -39,7 +44,7 @@ export default function HomePage() {
       }
     };
     fetchTrends();
-  }, []);
+  }, [apiBaseUrl]);
 
   const filteredTrends = useMemo(() => {
     return trends.filter((t) => {
